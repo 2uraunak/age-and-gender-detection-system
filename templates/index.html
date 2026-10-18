@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Age and Gender Detection System</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0b0f19; color: #f8fafc; margin: 0; padding: 30px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #818cf8; margin-bottom: 6px; }
+        .subtitle { color: #94a3b8; margin-bottom: 24px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .card { background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 24px; }
+        .upload-box { border: 2px dashed #374151; border-radius: 10px; padding: 35px; text-align: center; background: #0f172a; margin-bottom: 16px; }
+        button { background: #6366f1; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; width: 100%; cursor: pointer; }
+        button:hover { background: #4f46e5; }
+        .attr-pill { background: #1e293b; border: 1px solid #334155; padding: 14px; border-radius: 10px; margin-bottom: 14px; }
+        .val { font-size: 22px; font-weight: bold; color: #38bdf8; }
+        .badge { background: #064e3b; color: #10b981; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👤 Deep Learning Age & Gender Detection</h1>
+        <p class="subtitle">Multi-Task Convolutional Neural Network for Facial Attribute Classification</p>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Upload Portrait Image</h2>
+                <form action="/detect" method="POST" enctype="multipart/form-data">
+                    <div class="upload-box">
+                        <input type="file" name="face_image" accept="image/*" required style="color:#94a3b8;">
+                    </div>
+                    <button type="submit">🔬 Analyze Facial Deep Features</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Prediction Telemetry</h2>
+                {% if detected %}
+                <div class="attr-pill">
+                    <div style="color:#94a3b8; font-size:13px;">PREDICTED GENDER</div>
+                    <div class="val">{{ gender }} <span class="badge">{{ gender_conf }}% Confidence</span></div>
+                </div>
+                <div class="attr-pill">
+                    <div style="color:#94a3b8; font-size:13px;">ESTIMATED AGE BRACKET</div>
+                    <div class="val">{{ age }} Years <span class="badge">{{ age_conf }}% Confidence</span></div>
+                </div>
+                <div style="color:#94a3b8; font-size:13px; margin-top:14px;">
+                    Model Architecture: Dual Caffe/MobileNet Convolutional Feature Backbone
+                </div>
+                {% else %}
+                <p style="color:#64748b; text-align:center; padding: 40px 0;">Upload a face snapshot to view predicted age brackets and gender confidence.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
